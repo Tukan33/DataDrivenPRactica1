@@ -208,22 +208,23 @@ barplot(
 ```
 
 
+### **Pregunta 4**
+De las peticiones hechas por instituciones educativas (.edu), ¿Cuantos bytes en total se han transmitido, en peticiones de descarga de ficheros de texto ".txt"?
 
-```{r llegir_data}
-epa_http <- read_table("epa-http.csv", col_names = FALSE)
+El número total de Bytes que se han transmitido en las peticiones de descarga de ficheros de texto son:
+```{r Pregunta4, comment = NA}
+
+# Filtro filas con texto ".edu" en la columna de IP
+epa_edu <- epa_http[grepl("\\.edu", epa_http$IP), ]
+
+# Filtro filas que contienen un fichero de descarga .txt
+epa_edu <- epa_edu[grepl("\\.txt", epa_edu$URL), ]
+
+# Sumo la columna de Bytes, ignorando los NA
+cat(sum(epa_edu$Bytes, na.rm = T))
+
 ```
 
-You can also embed plots, for example:
 
-```{r pressure, echo=TRUE}
-plot(pressure)
-```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
-### Pregunta 1
-Cuales son las dimensiones del dataset cargado (número de filas y columnas)
-
-```{r p1, echo=FALSE}
-dim(epa_http)
-```
