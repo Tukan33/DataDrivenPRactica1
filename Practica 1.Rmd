@@ -226,5 +226,14 @@ cat(sum(epa_edu$Bytes, na.rm = T))
 ```
 
 
+### **Pregunta 5**
+Si separamos la petición en 3 partes (Tipo, URL, Protocolo), usando str_split y el separador " " (espacio), ¿cuantas peticiones buscan directamente la URL = "/"?
+
+El número total de peticiones que buscan directamente la URL = \"/\" son:
+
+```{r Pregunta5, comment = NA}
+# Suma de las filas con URL de valor "/"
+cat(sum(epa_http$URL == "/", na.rm = T))
+```
 
 
