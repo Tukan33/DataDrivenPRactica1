@@ -84,12 +84,64 @@ Para las siguientes preguntas se requiere usar R. Indica en este documento para 
 
 Asegúrate de entregar también el código en un fichero aparte, para poder ejecutarse directamente en un terminal limpio de R.
 
-```{r carga de liberrías}
+```{r carga_de_librerías}
 library(readr)
 library(dplyr)
 library(stringr)
 ```
 
+Cargo y limpio los datos, indicando su tipo en cada campo:
+
+- Con 'stringr' limpio el símbolo " al inicio de cada valor del campo Tipo y el símbolo " que del final de cada valor del campo Protocolo.
+
+- ResponseCode lo modifico al tipo de dato factor, porque son etiquetas
+
+- Bytes lo cambio al tipo de dato integer, para tratarlo como valor numérico
+
+```{r carga_de_datos}
+epa_http <- read_table("epa-http.csv", col_names = FALSE, show_col_types = F)
+colnames(epa_http) <- c("IP", "Timestamp", "Tipo", "URL", "Protocolo", "ResponseCode", "Bytes")
+
+# Cambio ResponseCode a factor 
+epa_http$ResponseCode <- as.factor(epa_http$ResponseCode)
+
+# Cambio Bytes a integer
+epa_http$Bytes <- as.integer(epa_http$Bytes)
+
+# Aplicación de stringr en Tipo
+epa_http$Tipo <- str_remove(epa_http$Tipo, '^"')
+
+# Aplicación de stringr en Protocolo
+epa_http$Protocolo <- str_remove(epa_http$Protocolo, '"$')
+```
+
+
+```{r mostrar_datos, comment = NA}
+knitr::kable(
+  head(epa_http),
+  caption = "Muestra de conjunto de datos:"
+)
+```
+
+### **Práctica: Pregunta 1**
+**Una vez cargado el Dataset a analizar, comprobando que se cargan las IPs, el Timestamp, la Petición (Tipo, URL y Protocolo), Código de respuesta, y Bytes de reply.**
+
+1. Cuales son las dimensiones del dataset cargado (número de filas y columnas)
+
+Número filas:
+```{r Pregunta1.1, comment = NA}
+cat(nrow(epa_http))
+```
+
+Número columnas:  
+```{r Pregunta1.2, comment = NA}
+cat(ncol(epa_http))
+```
+
+2. Valor medio de la columna Bytes
+```{r Pregunta2, comment = NA}
+cat(mean(epa_http$Bytes, na.rm = T))
+```
 
 
 
