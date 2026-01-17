@@ -47,10 +47,28 @@ Predictiva, porque asigna o clasifica a un usuario nuevo a uno o varios grupos e
 
 
 
-## apartat 1
+## Pregunta 2
 
-```{r carrega_llibreries}
-library(readr)
+Considera el siguiente escenario:<br>
+Sabemos que un usuario de nuestra red empresarial ha estado usando esta para fines no relacionados con el trabajo, como por ejemplo tener un servicio web no autorizado abierto a la red (otros usuarios tienen servicios web activados y autorizados). No queremos tener que rastrear los puertos de cada PC, y sabemos que la actividad puede haber cesado. Pero podemos acceder a los registros de conexiones TCP de cada máquina de cada trabajador (hacia donde abre conexión un PC concreto). Sabemos que nuestros clientes se conectan desde lugares remotos de forma legítima, como parte de nuestro negocio, y que un trabajador puede haber habilitado temporalmente servicios de prueba. Nuestro objetivo es reducir lo posible la lista de posibles culpables, con tal de explicarles que por favor no expongan nuestros sistemas sin permiso de los operadores o la dirección.
+
+Explica con detalle cómo se podría proceder al análisis y resolución del problema mediante Data Science, indicando de donde se obtendrían los datos, qué tratamiento deberían recibir, qué preguntas hacerse para resolver el problema, qué datos y gráficos se obtendrían, y cómo se comunicarían estos.
+
+
+```
+La forma de abordar el problema con Data Science, usando solo registros de conexiones TCP salientes, es partir de la idea de que si muchos PCs abren conexiones hacia un mismo destino interno (IP:puerto), ese destino probablemente estaba ofreciendo un servicio (aunque ya haya cesado). 
+
+Para ello, se recogen los logs de conexiones TCP por máquina y se enriquecen con fuentes de contexto. Luego se normalizan y limpian los datos (timestamps, duplicación, ...) y se formulan preguntas orientadas a acotar sospechosos: 
+
+- qué hosts internos aparecen como “receptores” con mayor numero de sources
+- en qué puertos típicos de servicios web ocurre (80/443/8080/8443/8000, etc.)
+- cuáles no están autorizados
+- si el patrón es sostenido o puntual
+
+El resultado se presenta como un ranking de candidatos host:puerto no autorizados con métricas explicables (número de fuentes únicas, número de conexiones, duración temporal, distribución horaria) y un “score” simple de probabilidad de servicio, apoyado por gráficos básicos como barras, series temporales y un heatmap. 
+
+Finalmente, se comunica entregando una lista corta y defendible de posibles responsables con evidencia objetiva (qué ocurrió y cuándo) para pedir que no se expongan servicios sin autorización.
+
 ```
 
 
