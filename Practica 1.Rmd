@@ -68,8 +68,29 @@ Para ello, se recogen los logs de conexiones TCP por máquina y se enriquecen co
 El resultado se presenta como un ranking de candidatos host:puerto no autorizados con métricas explicables (número de fuentes únicas, número de conexiones, duración temporal, distribución horaria) y un “score” simple de probabilidad de servicio, apoyado por gráficos básicos como barras, series temporales y un heatmap. 
 
 Finalmente, se comunica entregando una lista corta y defendible de posibles responsables con evidencia objetiva (qué ocurrió y cuándo) para pedir que no se expongan servicios sin autorización.
-
 ```
+
+## **Ejercicio Práctico**
+El segundo apartado de la práctica consiste en el análisis de un fichero de registro de peticiones HTTP, que debéis descargar el fichero adjunto: epa-http.zip, cargar en R, y realizar un análisis
+
+Se recomienda tener cierto nivel de familiaridad y al alcance los cheatsheet de las distintas librerías mencionadas en las sesiones de teoría para un análisis más fácil:
+
+- readr
+- stringr
+
+Alternativamente, recordad que podéis consultar la sección de ayuda de RStudio y buscar en la documentación los parámetros, así como ejemplos de uso (al final de cada página de documentación) para las funciones (escribiendo ?<nombre-funcion> o presionando F1 sobre el nombre de la función.
+
+Para las siguientes preguntas se requiere usar R. Indica en este documento para cada pregunta el resultado obtenido, describiendo a grandes rasgos el procedimiento seguido para la obtención de la respuesta, justificando cada decisión tomada a la hora de manipular los datos (descartar, agrupar, transformar, etc).
+
+Asegúrate de entregar también el código en un fichero aparte, para poder ejecutarse directamente en un terminal limpio de R.
+
+```{r carga de liberrías}
+library(readr)
+library(dplyr)
+library(stringr)
+```
+
+
 
 
 ```{r llegir_data}
