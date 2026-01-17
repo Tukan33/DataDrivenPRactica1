@@ -1,25 +1,49 @@
 ---
 title: "Practica 1"
+author: "Ulises"
 output: html_document
-date: "2026-01-13"
+date: "2026-01-17"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = F)
+knitr::opts_chunk$set(warning = F)
+knitr::opts_chunk$set(error = F)
+knitr::opts_chunk$set(message = F)
 ```
 
 
 # Practica 1
 
 
-## apartat 1
+## Pregunta 1
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+De las siguientes preguntas, clasifica cada una como descriptiva, exploratoria, inferencia, predictiva o causal, y razona brevemente (una frase) el porqué:
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+1. Dado un registro de vehículos que circulan por una autopista, disponemos de su marca y modelo, país de matriculación, y tipo de vehículo (por número de ruedas). Con tal de ajustar precios de los peajes, ¿Cuántos vehículos tenemos por tipo? ¿Cuál es el tipo más frecuente? ¿De qué países tenemos más vehículos?
 
+```
+En los tres casos son descriptivas, ya que las preguntas se limitan a resumir el dataset observado (registro de vehículos) mediante ordenaciones o frecuencias.
+```
 
+2. Dado un registro de visualizaciones de un servicio de video-on-demand, donde disponemos de los datos del usuario, de la película seleccionada, fecha de visualización y categoría de la película, queremos saber ¿Hay alguna preferencia en cuanto a género literario según los usuarios y su rango de edad?
 
+```
+Es exploratoria, ya que intenta identificar patrones entre variables (preferencia de género respecto a la edad)
+```
+
+3. Dado un registro de peticiones a un sitio web, vemos que las peticiones que provienen de una red de telefonía concreta acostumbran a ser incorrectas y provocarnos errores de servicio. ¿Podemos determinar si en el futuro, los próximos mensajes de esa red seguirán dando problemas? ¿Hemos notado el mismo efecto en otras redes de telefonía?
+
+```
+La primera pregunta es predictiva, ya que intenta predecir si ocurrirán peticiones futuras basándose en el historial.
+La segunda pregunta es exploratoria, ya que se compara con otras redes de telefonía
+```
+
+4. Dado los registros de usuarios de un servicio de compras por internet, los usuarios pueden agruparse por preferencias de productos comprados. Queremos saber si ¿Es posible que, dado un usuario al azar y según su historial, pueda ser directamente asignado a un o diversos grupos?
+
+```         
+Predictiva, porque asigna o clasifica a un usuario nuevo a uno o varios grupos en función de su historial.
+```
 
 
 
@@ -43,6 +67,7 @@ plot(pressure)
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
 ### Pregunta 1
+Cuales son las dimensiones del dataset cargado (número de filas y columnas)
 
 ```{r p1, echo=FALSE}
 dim(epa_http)
