@@ -139,9 +139,22 @@ cat(ncol(epa_http))
 ```
 
 2. Valor medio de la columna Bytes
-```{r Pregunta2, comment = NA}
+```{r Pregunta1.3, comment = NA}
 cat(mean(epa_http$Bytes, na.rm = T))
 ```
+
+
+### **Pregunta 2**
+**De las diferentes IPs de origen accediendo al servidor, ¿cuantas pertenecen a una IP claramente educativa (que contenga ".edu")?**
+
+```{r Pregunta2, comment = NA}
+cat(sum(grepl(".edu", epa_http$IP)))
+
+```
+
+Justificación: Utilizamos *grepl* para filtrar peticiones que contengan ".edu" en el campo IP, obtenemos el total de peticiones que cumplen este filtro.
+
+
 
 
 
