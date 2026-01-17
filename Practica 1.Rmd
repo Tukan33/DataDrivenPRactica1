@@ -124,7 +124,7 @@ knitr::kable(
 ```
 
 ### **Práctica: Pregunta 1**
-**Una vez cargado el Dataset a analizar, comprobando que se cargan las IPs, el Timestamp, la Petición (Tipo, URL y Protocolo), Código de respuesta, y Bytes de reply.**
+Una vez cargado el Dataset a analizar, comprobando que se cargan las IPs, el Timestamp, la Petición (Tipo, URL y Protocolo), Código de respuesta, y Bytes de reply.
 
 1. Cuales son las dimensiones del dataset cargado (número de filas y columnas)
 
@@ -145,7 +145,7 @@ cat(mean(epa_http$Bytes, na.rm = T))
 
 
 ### **Pregunta 2**
-**De las diferentes IPs de origen accediendo al servidor, ¿cuantas pertenecen a una IP claramente educativa (que contenga ".edu")?**
+De las diferentes IPs de origen accediendo al servidor, ¿cuantas pertenecen a una IP claramente educativa (que contenga ".edu")?
 
 ```{r Pregunta2, comment = NA}
 cat(sum(grepl(".edu", epa_http$IP)))
@@ -155,6 +155,57 @@ cat(sum(grepl(".edu", epa_http$IP)))
 Justificación: Utilizamos *grepl* para filtrar peticiones que contengan ".edu" en el campo IP, obtenemos el total de peticiones que cumplen este filtro.
 
 
+### **Pregunta 3**
+De todas las peticiones recibidas por el servidor cual es la hora en la que hay mayor volumen de peticiones HTTP de tipo "GET"?
+
+
+```{r Pregunta3.1, comment = NA}
+# Nuevo dataframe donde solo hayan con GET
+epa_get <- epa_http[epa_http$Tipo == "GET", ]
+
+# Creo nueva columna (hora) con el valor del Timestamp
+epa_get <- epa_get %>%
+  mutate(
+    Hora = sub("^\\[|\\]$", "", Timestamp),  # quita [ ]
+    Hora = sapply(strsplit(Hora, ":"), `[`, 2)
+  )
+
+# Cuento cuantas veces aparece cada una de las franjas horarias mediante un nuevo dataframe con dos columnas, valor de las horas [0-23] y su frecuencia
+frecuencia_horas <- epa_get %>%count(Hora)
+
+# Muestro solo la primera fila y filtro de manera descendente
+hora_max <- frecuencia_horas %>%
+  arrange(desc(n)) %>%
+  slice(1) %>%           
+  pull(Hora)
+cat(hora_max)
+
+# Muestro las 3 franjas horarias con mayor numero de peticiones
+knitr::kable(
+  frecuencia_horas %>%
+    arrange(desc(n)) %>%
+    slice(1:3),
+  caption = "3 horas del día con mayor número de peticiones:"
+)
+
+```
+
+Con *barplot* muestro los resultados gráficamente mediante barras
+
+```{r Pregunta3.2, comment = NA}
+# Ordenación de datos
+frecuencia_horas <- frecuencia_horas[order(frecuencia_horas$Hora), ]
+
+# Generación de gráfico de barras
+barplot(
+  height = frecuencia_horas$n,
+  names.arg = frecuencia_horas$Hora,
+  col = "purple",
+  xlab = "Franja horaria",
+  ylab = "Nº peticiones HTTP GET",
+  main = "Peticiones HTTP GET por hora"
+)
+```
 
 
 
