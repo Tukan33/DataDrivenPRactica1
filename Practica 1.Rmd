@@ -236,4 +236,13 @@ El número total de peticiones que buscan directamente la URL = \"/\" son:
 cat(sum(epa_http$URL == "/", na.rm = T))
 ```
 
+### **Pregunta 6**
+**Aprovechando que hemos separado la petición en 3 partes (Tipo, URL, Protocolo) ¿Cuantas peticiones NO tienen como protocolo "HTTP/0.2"?**
+
+Peticiones que NO tienen como protocolo HTTP/0.2:
+
+```{r Pregunta6, comment = NA}
+# Suma de las filas cuyo Protocolo NO tenga de valor HTTP/0.2 
+cat(sum(epa_http$Protocolo != "HTTP/0.2", na.rm = T))
+```
 
